@@ -115,15 +115,17 @@
 
             <layout:Grid defaultSpan="XL3 L3 M6 S12" hSpacing="1" vSpacing="1" class="retailAlertGrid" content="{alerts>/items}">
               <VBox class="retailAlertCard">
-                <HBox justifyContent="SpaceBetween" alignItems="Start">
-                  <HBox alignItems="Center" class="retailAlertTop">
+                <VBox class="retailAlertBody">
+                  <HBox alignItems="Start" class="retailAlertTop">
                     <core:Icon src="{alerts>icon}" color="{alerts>color}" size="1rem"/>
-                    <Title text="{alerts>title}" level="H6"/>
+                    <VBox class="retailAlertTitleBlock">
+                      <Title text="{alerts>title}" level="H6" wrapping="true"/>
+                      <Text text="{alerts>date}" class="retailAlertDate"/>
+                    </VBox>
                   </HBox>
-                  <Text text="{alerts>date}" class="retailMuted"/>
-                </HBox>
-                <Text text="{alerts>subtitle}" wrapping="true" class="retailAlertSubtitle"/>
-                <Text text="{alerts>description}" wrapping="true" class="retailMuted"/>
+                  <Text text="{alerts>subtitle}" wrapping="true" class="retailAlertSubtitle"/>
+                  <Text text="{alerts>description}" wrapping="true" class="retailAlertDescription"/>
+                </VBox>
                 <HBox justifyContent="End" class="retailAlertActions">
                   <Button text="View Details" type="Success" press="onAlertDetails"/>
                   <Button text="Ignore" type="Reject" press="onIgnoreAlert"/>

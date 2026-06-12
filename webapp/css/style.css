@@ -1403,27 +1403,65 @@
   width: 100%;
 }
 
+.retailAlertGrid .sapUiRespGridSpanXL3,
+.retailAlertGrid .sapUiRespGridSpanL3 {
+  min-width: 17.2rem;
+}
+
 .retailAlertCard {
-  min-height: 8.1rem;
+  min-height: 8.95rem;
+  height: 100%;
   padding: 0.85rem;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.retailAlertBody {
+  min-height: 5.7rem;
 }
 
 .retailAlertTop {
   gap: 0.4rem;
+  width: 100%;
+}
+
+.retailAlertTitleBlock {
+  min-width: 0;
+  flex: 1;
 }
 
 .retailAlertTop .sapMTitle {
   color: #1d2b3a !important;
   font-size: 0.9rem !important;
   font-weight: 800 !important;
+  line-height: 1.18 !important;
+  white-space: normal !important;
+}
+
+.retailAlertDate {
+  display: block;
+  color: #66788a;
+  font-size: 0.68rem;
+  line-height: 1.05;
+  margin-top: 0.1rem;
 }
 
 .retailAlertSubtitle {
   display: block;
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
   color: #162434;
   font-size: 0.78rem;
   font-weight: 700;
+  line-height: 1.16;
+}
+
+.retailAlertDescription {
+  display: block;
+  color: #4f6275;
+  font-size: 0.72rem;
+  line-height: 1.18;
+  margin-top: 0.12rem;
 }
 
 .retailMuted {
@@ -1433,7 +1471,8 @@
 
 .retailAlertActions {
   gap: 0.45rem;
-  margin-top: 0.55rem;
+  margin-top: 0.65rem;
+  min-height: 1.65rem;
 }
 
 .retailAlertActions .sapMBtnInner {
@@ -1450,7 +1489,7 @@
 
 .retailMoreLinks {
   gap: 0.45rem;
-  margin: 0.1rem 0 0.55rem 0;
+  margin: 0.45rem 0 0.75rem 0;
 }
 
 .retailPanel {
