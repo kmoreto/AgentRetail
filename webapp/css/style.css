@@ -1693,7 +1693,22 @@
 .retailDonutLabels b:nth-child(4) { right: 37%; top: 18%; }
 
 .retailLowerGrid {
+  display: flex;
+  gap: 1rem;
   margin-top: 1rem;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.retailLowerColumn {
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 28rem;
+  gap: 1rem;
+}
+
+.retailLowerColumn .retailPanel {
+  width: 100%;
+  min-height: 0;
 }
 
 .retailForecast {
@@ -1887,6 +1902,11 @@
   .retailCalendarWrap,
   .retailProductRow {
     flex-wrap: wrap;
+  }
+
+  .retailLowerColumn {
+    flex-basis: 100%;
+    min-width: 100%;
   }
 }
 
