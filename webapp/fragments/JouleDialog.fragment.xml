@@ -1,0 +1,102 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="jouleDialog"
+          draggable="true"
+          resizable="true"
+          contentWidth="500px"
+          contentHeight="690px"
+          stretchOnPhone="true"
+          class="jouleDialog jouleOfficialMock">
+
+    <customHeader>
+      <Bar class="jouleOfficialHeader">
+        <contentLeft>
+          <Button type="Transparent" icon="sap-icon://menu2" tooltip="Menu"/>
+        </contentLeft>
+        <contentMiddle>
+          <Title level="H5" text="{= ${chat>/messages}.length === 0 ? 'Joule' : 'Detalhes de estoque do mater...' }"/>
+        </contentMiddle>
+        <contentRight>
+          <Button type="Transparent" icon="sap-icon://overflow" tooltip="Mais" visible="{= ${chat>/messages}.length > 0 }"/>
+          <Button type="Transparent" icon="sap-icon://full-screen" tooltip="Tela cheia"/>
+          <Button type="Transparent" icon="sap-icon://decline" tooltip="Fechar" press="onJouleClose"/>
+        </contentRight>
+      </Bar>
+    </customHeader>
+
+    <content>
+      <VBox height="100%" class="jouleOfficialShell">
+        <VBox visible="{= ${chat>/messages}.length === 0 }" class="jouleWelcomePane">
+          <VBox class="jouleHeroIcon"/>
+          <VBox class="jouleWelcomeText">
+            <Text text="Hello Kleber," class="jouleWelcomeHello"/>
+            <Text text="How can I help you?" class="jouleWelcomeQuestion"/>
+            <Text text="Talk to me naturally." class="jouleWelcomeChip"/>
+          </VBox>
+        </VBox>
+
+        <ScrollContainer visible="{= ${chat>/messages}.length > 0 }" height="100%" vertical="true" horizontal="false" class="jouleOfficialScroll">
+          <VBox class="jouleOfficialConversation">
+            <Text text="Today 17:57" class="jouleTimeMarker"/>
+
+            <List id="lstChat" items="{chat>/messages}" showSeparators="None" showNoData="false" class="jouleChatList">
+              <CustomListItem>
+                <VBox width="100%" class="jouleMessageItem">
+                  <VBox visible="{= ${chat>role} === 'user' }" class="jouleUserBubble">
+                    <Text text="{chat>text}" wrapping="true"/>
+                  </VBox>
+
+                  <VBox visible="{= ${chat>role} !== 'user' }" class="jouleAssistantBlock">
+                    <Text text="Joule" class="jouleAssistantName" visible="false"/>
+                    <Text text="{chat>text}" wrapping="true" class="jouleAssistantText"/>
+                  </VBox>
+                </VBox>
+              </CustomListItem>
+            </List>
+
+            <List id="lstResults" items="{chat>/results}" showSeparators="None" showNoData="false" class="jouleResultsList jouleOfficialResults">
+              <CustomListItem>
+                <VBox class="jouleAnswerCard">
+                  <Title level="H5" text="{chat>title}" class="jouleAnswerTitle"/>
+                  <Text text="{chat>subtitle}" class="jouleAnswerSubtitle" wrapping="true"/>
+
+                  <VBox class="jouleStockFacts">
+                    <VBox visible="{= !!${chat>label1} }" class="jouleStockFact"><Label text="{chat>label1}"/><Text text="{chat>value1}"/></VBox>
+                    <VBox visible="{= !!${chat>label2} }" class="jouleStockFact"><Label text="{chat>label2}"/><Text text="{chat>value2}"/></VBox>
+                    <VBox visible="{= !!${chat>label3} }" class="jouleStockFact"><Label text="{chat>label3}"/><Text text="{chat>value3}"/></VBox>
+                    <VBox visible="{= !!${chat>label4} }" class="jouleStockFact"><Label text="{chat>label4}"/><Text text="{chat>value4}"/></VBox>
+                    <VBox visible="{= !!${chat>label5} }" class="jouleStockFact"><Label text="{chat>label5}"/><Text text="{chat>value5}"/></VBox>
+                  </VBox>
+
+                  <Button visible="{= !!${chat>route} || !!${chat>action} }" text="{= ${chat>buttonText} || 'Abrir' }" type="Emphasized" press="onJouleOpenResult" class="jouleAnswerOpen"/>
+                </VBox>
+              </CustomListItem>
+            </List>
+
+            <HBox visible="{= ${chat>/messages}.length > 1 || ${chat>/results}.length > 0 }" class="jouleFeedbackBar">
+              <Button type="Transparent" icon="sap-icon://thumb-up" tooltip="Resposta util"/>
+              <Button type="Transparent" icon="sap-icon://thumb-down" tooltip="Resposta nao util"/>
+              <Button type="Transparent" icon="sap-icon://hint" tooltip="Informacoes"/>
+            </HBox>
+          </VBox>
+        </ScrollContainer>
+
+        <VBox class="jouleOfficialFooter">
+          <HBox class="jouleInputPill" alignItems="Center" width="100%">
+            <Input id="inpUserMsg"
+                   width="100%"
+                   placeholder="Message Joule..."
+                   submit="onJouleSend"
+                   liveChange="onJouleLiveChange"/>
+            <Button id="btnSend" class="jouleSendBtn" icon="sap-icon://paper-plane" type="Emphasized" press="onJouleSend" enabled="true"/>
+          </HBox>
+          <Text text="Joule uses AI. Verify results." class="jouleDisclaimer"/>
+        </VBox>
+      </VBox>
+    </content>
+  </Dialog>
+</core:FragmentDefinition>
+
+
+
+
+

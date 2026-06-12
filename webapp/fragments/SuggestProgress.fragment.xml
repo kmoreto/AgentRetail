@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="dlgSuggestProgress"
+          class="sapUiContentPadding"
+          showHeader="false"
+          afterClose="onCloseSuggestProgress">
+    <VBox class="sapUiSmallMargin" alignItems="Center" justifyContent="Center">
+      <BusyIndicator/>
+      <Text text="{suggest>/message}" class="sapUiTinyMarginTop"/>
+    </VBox>
+  </Dialog>
+</core:FragmentDefinition>

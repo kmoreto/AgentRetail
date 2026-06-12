@@ -1,0 +1,26 @@
+{
+  "currency": "EUR",
+  "truckCapacity": 110,
+  "totals": { "totalWeight": 0, "totalValue": 0 },
+  "items": [
+    {
+      "id": "MR313104",
+      "name": "Roma Tomato",
+      "leadTime": 1,
+      "deliveryDate": "2025-10-23",
+      "replenishmentDate": "2025-10-23",
+      "vendor": "RETAIL LIEFERANT",
+      "altVendor": "Retail Vendor RS4400",
+      "qty": 10,
+      "qtyBase": 10,
+      "unit": "LB",
+      "stockPct": 65,
+      "price": 11.0,
+      "avgSellPrice": 14.3
+    },
+    { "id": "MR313106", "name": "Grape Tomato", "leadTime": 2, "deliveryDate": "2025-10-23", "replenishmentDate": "2025-10-23", "vendor": "RETAIL LIEFERANT", "altVendor": "", "qty": 5, "qtyBase": 5, "unit": "KG", "stockPct": 45, "price": 11.0, "avgSellPrice": 14.3 },
+    { "id": "MR313107", "name": "Grape Tomato Organic", "leadTime": 1, "deliveryDate": "2025-10-23", "replenishmentDate": "2025-10-23", "vendor": "RETAIL LIEFERANT", "altVendor": "", "qty": 3, "qtyBase": 3, "unit": "KG", "stockPct": 55, "price": 11.0, "avgSellPrice": 14.3 },
+    { "id": "MR313108", "name": "Cherry Tomato", "leadTime": 2, "deliveryDate": "2025-10-23", "replenishmentDate": "2025-10-23", "vendor": "RETAIL LIEFERANT", "altVendor": "", "qty": 11, "qtyBase": 11, "unit": "EA", "stockPct": 65, "price": 11.0, "avgSellPrice": 14.3 },
+    { "id": "MR314111", "name": "2% Milk 1 Gallon", "leadTime": 1, "deliveryDate": "2025-10-23", "replenishmentDate": "2025-10-23", "vendor": "RETAIL LIEFERANT", "altVendor": "", "qty": 21, "qtyBase": 21, "unit": "PC", "stockPct": 15, "price": 11.0, "avgSellPrice": 14.3 }
+  ]
+}

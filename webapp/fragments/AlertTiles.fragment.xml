@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <!-- HBox com binding direto na agregacao 'items' para renderizar cartoes em linha -->
+  <HBox class="alertTilesContainer" items="{alerts>/items}" renderType="Bare">
+    <items>
+      <VBox class="alertTileCard sapUiSmallMargin" width="13rem" renderType="Bare">
+        <HBox alignItems="Center" class="alertTileHeader">
+          <Button icon="{alerts>icon}" type="Transparent" press="onAlertTilePress" class="alertTileBtn" />
+          <Title level="H6" text="{alerts>title}"/>
+        </HBox>
+        <ObjectNumber class="alertTileMetric" number="{alerts>metricValue}" state="{alerts>state}" visible="{= !!${alerts>metricValue} }"/>
+        <Text class="alertTileSubtitle sapUiTinyMarginBottom" text="{alerts>subtitle}" wrapping="true"/>
+        <ProgressIndicator class="alertTileProgress"
+          visible="{= !!${alerts>total} }"
+          percentValue="{alerts>resolvedPct}"
+          displayValue="{= 'Resolvido: ' + ${alerts>resolved} + '/' + ${alerts>total} }"
+          width="100%"/>
+      </VBox>
+    </items>
+  </HBox>
+</core:FragmentDefinition>

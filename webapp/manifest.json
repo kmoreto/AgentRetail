@@ -1,0 +1,67 @@
+{
+  "_version": "1.32.0",
+  "sap.app": {
+    "id": "agentretail",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "AgentRetail Cockpit",
+    "description": "AgentRetail Cockpit",
+    "applicationVersion": { "version": "1.0.0" },
+    "crossNavigation": {
+            "inbounds": {
+              "agentretail-display": {
+                "semanticObject": "agentretail",
+                "action": "display",
+                "title": "AgentRetail",
+                "signature": { "parameters": {}, "additionalParameters": "allowed" }
+              }
+            }
+          }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "rootView": { "viewName": "agentretail.view.App", "type": "XML", "id": "App" },
+    "config": {
+      "fullWidth": true
+    },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+       "libs": {
+      "sap.m": {},
+      "sap.f": {},
+      "sap.ui.core": {},
+      "sap.viz": {},
+      "sap.ui.table": {}
+    }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": { "bundleName": "agentretail.i18n.i18n" }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "agentretail.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        { "pattern": "", "name": "RouteView1", "target": "View1" },
+        { "pattern": "view2", "name": "RouteView2", "target": "View2" },
+        { "pattern": "material/{materialId}", "name": "RouteView3", "target": "View3" }
+      ],
+      "targets": {
+        "View1": { "viewName": "View1", "viewId": "view1" },
+        "View2": { "viewName": "View2", "viewId": "view2" },
+        "View3": { "viewName": "View3", "viewId": "view3" }
+      }
+    }
+  }
+}

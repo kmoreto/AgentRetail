@@ -1,0 +1,92 @@
+<mvc:View
+  controllerName="agentretail.controller.View3"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Page id="pageView3" title="Detalhe do Material" showNavButton="true" navButtonPress="onNavBack">
+    <content>
+
+      <!-- Cabeçalho: descrição como título e ID como número 
+      <ObjectHeader title="{detail>name}" number="{detail>id}" responsive="true">
+        <attributes>
+          <ObjectAttribute title="Vendor" text="{detail>vendor}"/>
+          <ObjectAttribute title="material " text="{
+        parts: [{path:'detail>id'},{path:'detail>name'}],
+        formatter: '.formatMaterialHeader'
+      }"/>
+        </attributes>
+        <statuses>
+          <ObjectStatus title="Qtd total a adicionar"
+                        text="{detail>/totalAdd} {detail>/unit}"/>
+        </statuses>
+      </ObjectHeader>
+-->
+      <!-- Tabela por loja -->
+      <Table id="storesTable" items="{path: 'detail>/stores'}">
+        <headerToolbar>
+          <Toolbar>
+            <Title text="Lojas" level="H2"/>
+            <ToolbarSpacer/>
+            <SearchField placeholder="Buscar loja" liveChange="onStoreSearch"/>
+          </Toolbar>
+        </headerToolbar>
+
+        <columns>
+          <Column><Text text="Loja"/></Column>
+          <Column hAlign="Center"><Text text="Estoque Atual"/></Column>
+          <Column hAlign="Center"><Text text="Cobertura (dias)"/></Column>
+          <!-- NOVA coluna -->
+          <Column hAlign="End"><Text text="Preço da venda"/></Column>
+
+          <Column hAlign="Center"><Text text="Qtd a adicionar ({detail>unit})"/></Column>
+          <!-- NOVA: Qtd distribuída 
+          <Column hAlign="Center">  <Text text="Qtd distribuída ({material>unit})"/></Column>
+-->
+          <!-- NOVA: Previsão de vendas -->
+          <Column hAlign="End">  <Text text="Previsão da Demanda"/></Column>
+          <Column hAlign="Center"><Text text="Ações"/></Column>
+        </columns>
+
+        <items>
+          <ColumnListItem>
+            <cells>
+              <ObjectIdentifier title="{detail>storeName}" text="{detail>storeId}"/>
+              <ObjectNumber number="{detail>stock}" unit="{detail>unit}"/>
+              <ObjectNumber number="{detail>coverageDays}" unit="dias"/>
+
+              <!-- CÉLULA do preço por loja (somente leitura) -->
+              <ObjectNumber
+                number="{
+                  parts: [{path:'detail>sellPrice'},{path:'detail>/currency'}],
+                  type: 'sap.ui.model.type.Currency',
+                  formatOptions: { showMeasure: false }
+                }"
+                unit="{detail>/currency}"/>
+
+              <StepInput value="{detail>qtyAdd}" min="0" step="1" width="8rem" change="onQtyAddChange"/>
+              <!-- NOVO: quantidade distribuída 
+              <ObjectNumber number="{detail>distQty}" unit="{detail>unit}"/>
+ -->
+              <!-- NOVO: previsão de vendas (distQty * price) - agora como link -->
+              <Link text="{= ${detail>forecast} + ' PEÇ' }" press="onOpenForecast" target="_blank" tooltip="Abrir previsão"/>
+              <HBox justifyContent="Center" renderType="Bare">
+                <Button icon="sap-icon://add" type="Transparent"
+                        tooltip="Adicionar com modo de entrega"
+                        press="onOpenDeliveryDialog"/>
+              </HBox>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+
+    <footer>
+      <Toolbar>
+        <ToolbarSpacer/>
+        <Button text="Adicionar ao Pedido" type="Emphasized" press="onAddToOrder"/>
+        <Button text="Ir para Pedido" press="onGoToOrder"/>
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="deliveryDateDialog" title="Gerar Pedido">
+    <VBox class="sapUiSmallMargin">
+        <Label text="Forma de Pagamento" required="true" class="sapUiSmallMarginTop"/>
+      <ComboBox id="paymentCombo" selectedKey="{dlg>/paymentMethod}" width="12rem">
+        <items>
+          <core:Item key="Avista" text="Aviasta 10% "/>
+          <core:Item key="15Dias" text="15 Dias 5%"/>
+          <core:Item key="30dias" text="30 Dias 3%"/>
+          <core:Item key="45dias" text="45 Dias "/>
+        </items>
+      </ComboBox>
+      <Label text="Data de entrega" required="true" class="sapUiSmallMarginTop"/>
+      <DatePicker value="{dlg>/expectedDelivery}" valueFormat="yyyy-MM-dd" displayFormat="long" width="12rem"/>
+      <Label text="Total do Pedido" class="sapUiSmallMarginTop"/>
+      <ObjectNumber
+        number="{
+          parts: [{path:'dlg>/totalValue'},{path:'dlg>/currency'}],
+          type: 'sap.ui.model.type.Currency'
+        }"/>
+
+
+    </VBox>
+    <beginButton><Button text="Criar Pedido" type="Emphasized" press="onDeliveryCreate"/></beginButton>
+    <endButton><Button text="Cancelar" press="onDeliveryCancel"/></endButton>
+  </Dialog>
+</core:FragmentDefinition>

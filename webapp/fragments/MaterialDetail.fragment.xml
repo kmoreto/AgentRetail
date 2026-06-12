@@ -1,0 +1,79 @@
+<!-- ...existing code... -->
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:l="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form">
+  <Popover
+    showHeader="true"
+    placement="Auto"
+    title="{detail>/id} - {detail>/description}"
+    showArrow="true"
+    horizontalScrolling="false"
+    contentWidth="520px">
+    <VBox class="sapUiSmallMargin">
+      <HBox justifyContent="SpaceBetween">
+        <VBox>
+          <Label text="Material" design="Bold"/>
+          <Text text="{detail>/id}" />
+          <Text text="{detail>/description}" />
+        </VBox>
+        <VBox>
+          <Label text="Plant" design="Bold"/>
+          <Text text="{detail>/plant}" />
+        </VBox>
+      </HBox>
+
+      <Toolbar design="Transparent"/>
+
+      <Label text="Stock Availability" design="Bold" class="sapUiSmallMarginTop"/>
+      <ProgressIndicator percentValue="{detail>/stockPct}" displayValue="{detail>/stockPct}%" width="100%"/>
+
+      <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
+        <VBox>
+          <Text text="Current Stock:" class="sapUiSmallMarginBottom"/>
+          <Text text="{= ${detail>/stockTotal} + ' PC' }" />
+        </VBox>
+        <VBox>
+          <Text text="Safety Stock:" class="sapUiSmallMarginBottom"/>
+          <Text text="{= ${detail>/safetyStock} ? ${detail>/safetyStock} + ' PC' : '—' }" />
+        </VBox>
+      </HBox>
+
+      <Toolbar design="Transparent"/>
+
+      <Label text="First Shortage" design="Bold" class="sapUiSmallMarginTop"/>
+      <HBox justifyContent="SpaceBetween">
+        <VBox>
+          <Text text="Days' Supply:"/>
+          <Text text="{detail>/firstShortage/daysSupply}" />
+        </VBox>
+        <VBox>
+          <Text text="Start Date:"/>
+          <Text text="{detail>/firstShortage/startDate}" />
+        </VBox>
+        <VBox>
+          <Text text="End Date:"/>
+          <Text text="{detail>/firstShortage/endDate}" />
+        </VBox>
+      </HBox>
+
+      <Toolbar design="Transparent"/>
+
+      <Label text="MRP Data" design="Bold" class="sapUiSmallMarginTop"/>
+      <form:SimpleForm editable="false" layout="ResponsiveGridLayout" class="sapUiSmallMarginTop">
+        <Label text="Procurement Type"/>
+        <Text text="{detail>/procurementType}"/>
+        <Label text="MRP Type"/>
+        <Text text="{detail>/mrpType}"/>
+        <Label text="Vendor"/>
+        <Text text="{detail>/vendor}"/>
+      </form:SimpleForm>
+
+      <Toolbar design="Transparent"/>
+      <HBox justifyContent="End">
+        <Button text="Open..." press=".onOpenPoLink" />
+      </HBox>
+    </VBox>
+  </Popover>
+</core:FragmentDefinition>

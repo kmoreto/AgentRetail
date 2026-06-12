@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <ResponsivePopover title="Material">
+    <VBox class="sapUiSmallMargin">
+      <ObjectIdentifier title="{name}" text="{id}"/>
+      <ObjectAttribute title="UM" text="{uom}"/>
+      <ObjectAttribute title="Preço" text="{price}"/>
+    </VBox>
+  </ResponsivePopover>
+</core:FragmentDefinition>

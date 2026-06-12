@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <!-- Capacidade (clicável) -->
+  <ObjectStatus
+    title="Limite de Capacidade"
+    text="{= ${order>/truckCapacity} + ' ' + (${order>/truckCapacityUnit} || 'PEÇ') }"
+    icon="sap-icon://shipping-status"
+    state="Information"
+    active="true"
+    press=".onOpenCapacityDialog"/>
+
+  <!-- Saldo (clicável) -->
+  <ObjectStatus
+    title="Restante"
+    text="{
+      parts:[
+        {path:'order>/truckCapacity'},
+        {path:'order>/totals/totalWeight'},
+        {path:'order>/truckCapacityUnit'}
+      ],
+      formatter:'.formatRemainingCapacity'
+    }"
+    icon="sap-icon://shipping-status"
+    state="{
+      parts:[
+        {path:'order>/truckCapacity'},
+        {path:'order>/totals/totalWeight'}
+      ],
+      formatter:'.formatRemainingState'
+    }"
+    active="true"
+    press=".onOpenCapacityDialog"/>
+</core:FragmentDefinition>

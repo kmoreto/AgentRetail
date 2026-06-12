@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="suggestDialog" title="Sugestão de Pedidos" class="sapUiContentPadding" stretchOnPhone="true"
+          busy="{suggest>/busy}" busyIndicatorDelay="100" afterClose="onCloseSuggest">
+    <VBox class="sapUiSmallMargin">
+      <BusyIndicator visible="{suggest>/busy}" text="Calculando sugestão..." />
+      <Toolbar>
+        <Title text="Sugestões"/>
+        <ToolbarSpacer/>
+        <ObjectStatus text="Valor total sugerido:"/>
+        <ObjectNumber id="onSugTotal" number="{suggest>/result/totalValue}" unit="EUR"/>
+        <Button id="btnApply" text="Aplicar ao Pedido" class="sapUiTinyMarginBegin"
+                enabled="{= ${suggest>/result/items}.length > 0 }"
+                press="onApplySuggestion"/>
+      </Toolbar>
+      <Table id="tblSug" items="{path:'suggest>/result/items'}" growing="true" width="100%">
+        <columns>
+          <Column><Text text="Material"/></Column>
+          <Column><Text text="Qtd"/></Column>
+          <Column><Text text="Loja"/></Column>
+          <Column hAlign="End"><Text text="Total"/></Column>
+        </columns>
+        <items>
+          <ColumnListItem>
+            <ObjectIdentifier title="{suggest>name}" text="{suggest>id}"/>
+            <ObjectNumber number="{suggest>qty}" unit="{suggest>uom}"/>
+            <Text text="{suggest>store}"/>
+            <ObjectNumber number="{suggest>total}" unit="EUR"/>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </VBox>
+    <beginButton>
+      <Button id="btnRunSuggest" text="Gerar Sugestão" type="Emphasized" press="onRunSuggest"/>
+    </beginButton>
+    <endButton>
+      <Button text="Fechar" press="onCloseSuggest"/>
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

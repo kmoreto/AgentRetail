@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>FLP Sandbox</title>
+
+  <!-- Config do FLP (tile + target #agentretail-display) -->
+  <script>
+    window["sap-ushell-config"] = {
+      defaultRenderer: "fiori2",
+      renderers: { fiori2: { componentData: { config: { enableSearch: false } } } },
+      services: {
+        "NavTargetResolution": { config: { enableClientSideTargetResolution: true } },
+        "LaunchPage": {
+          adapter: {
+            config: {
+              groups: [{
+                id: "grp",
+                title: "Apps",
+                tiles: [{
+                  id: "tile_agentretail",
+                  tileType: "sap.ushell.ui.tile.StaticTile",
+                  properties: { title: "AgentRetail", targetURL: "#agentretail-display" }
+                }]
+              }]
+            }
+          }
+        }
+      },
+      applications: {
+        "agentretail-display": {
+          additionalInformation: "SAPUI5.Component=agentretail",
+          applicationType: "URL",
+          url: "../"                 /* raiz do webapp (sai do /test) */
+        }
+      }
+    };
+  </script>
+
+  <!-- Carrega sandbox e UI5 pelo CDN (evita caminhos locais quebrados) -->
+  <script id="sap-ushell-bootstrap"
+          src="https://ui5.sap.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+
+  <script id="sap-ui-bootstrap"
+          src="https://ui5.sap.com/resources/sap-ui-core.js"
+          data-sap-ui-async="true"
+          data-sap-ui-theme="sap_horizon"
+          data-sap-ui-compatVersion="edge"
+          data-sap-ui-xx-viewCache="false"
+          data-sap-ui-libs="sap.m,sap.f,sap.ushell,sap.ui.table,sap.ui.comp"
+          data-sap-ui-resourceroots='{
+            "agentretail": "../",
+            "jquery": "sap/ui/thirdparty"
+          }'></script>
+
+  <!-- Inicializa o FLP depois que o UI5 estiver carregado -->
+  <script>
+    (function waitUi5(){
+      if (window.sap && sap.ui && sap.ushell) {
+        sap.ui.getCore().attachInit(function () {
+          sap.ushell.Container.createRenderer("fiori2").placeAt("content");
+        });
+      } else {
+        setTimeout(waitUi5, 50);
+      }
+    })();
+  </script>
+</head>
+<body class="sapUiBody" id="content"></body>
+</html>

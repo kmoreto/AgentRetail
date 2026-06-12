@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <ViewSettingsDialog id="vsdSortFilter"
+                      confirm="onSortFilterConfirm"
+                      cancel="onSortFilterCancel">
+
+    <sortItems>
+      <ViewSettingsItem text="Material" key="name"/>
+      <ViewSettingsItem text="Purchase Price" key="price"/>
+      <ViewSettingsItem text="Avg. Sell Price" key="avgSellPrice"/>
+      <ViewSettingsItem text="Qty (Base)" key="qtyBase"/>
+      <ViewSettingsItem text="Order No." key="poNumber"/>
+    </sortItems>
+
+    <filterItems>
+      <ViewSettingsFilterItem text="Markup %" key="markupRange">
+        <items>
+          <ViewSettingsItem text="&lt; 10%" key="lt10"/>
+          <ViewSettingsItem text="10% – 30%" key="btw10_30"/>
+          <ViewSettingsItem text="30% – 50%" key="btw30_50"/>
+          <ViewSettingsItem text="&gt; 50%" key="gt50"/>
+        </items>
+      </ViewSettingsFilterItem>
+    </filterItems>
+  </ViewSettingsDialog>
+</core:FragmentDefinition>

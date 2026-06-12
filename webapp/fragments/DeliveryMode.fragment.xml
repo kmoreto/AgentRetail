@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="deliveryDialog" title="Modo de entrega">
+    <VBox class="sapUiSmallMargin">
+      <Text text="{= ${dlg>/materialId} + ' — ' + ${dlg>/materialName} }" class="sapUiSmallMarginBottom"/>
+      <Text text="{= 'Loja: ' + ${dlg>/storeName} + ' (' + ${dlg>/storeId} + ')' }" class="sapUiTinyMarginBottom"/>
+      <Label text="Selecione o modo de entrega" class="sapUiSmallMarginTop"/>
+      <RadioButtonGroup selectedIndex="{dlg>/modeIndex}" columns="1">
+        <buttons>
+          <RadioButton text="Direto para a loja"/>
+          <RadioButton text="Centralizado (CD)"/>
+        </buttons>
+      </RadioButtonGroup>
+      <Label text="Quantidade" class="sapUiSmallMarginTop"/>
+      <StepInput value="{dlg>/qty}" min="0" step="1" width="10rem"/>
+      <Text text="{= 'Unidade: ' + ${dlg>/unit} }" class="sapUiTinyMarginTop"/>
+      <Text text="Obs" class="sapUiSmallMarginTop"/>
+    </VBox>
+    <beginButton><Button text="Confirmar" type="Emphasized" press="onDeliveryConfirm"/></beginButton>
+    <endButton><Button text="Cancelar" press="onDeliveryCancel"/></endButton>
+  </Dialog>
+</core:FragmentDefinition>

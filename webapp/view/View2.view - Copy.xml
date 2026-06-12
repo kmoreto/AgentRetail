@@ -1,0 +1,153 @@
+<mvc:View
+  controllerName="agentretail.controller.View2"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Page id="pageView2" title="Criar Pedido de Compra" showNavButton="true" navButtonPress="onNavBack">
+    <content>
+
+      <ObjectHeader title="RETAIL LIEFERANT" responsive="true">
+        <attributes>
+          <ObjectAttribute title="Receiving Plant" text="DC1 DE Supermarket (P101)"/>
+          <ObjectAttribute title="Expected Delivery Date" text="{order>/expectedDelivery}"/>
+        </attributes>
+
+        <statuses>
+          <ObjectStatus title="Total Weight" text="{order>/totals/totalWeight} PEÇ"/>
+          <ObjectStatus title="Total Volume" text="{order>/totals/totalVolume}"/>
+          <ObjectStatus title="Avg. Margem "
+                        text="{ path:'order>/totals/avgMarkup', formatter:'.formatPctText' }"
+                        state="{ path:'order>/totals/avgMarkup', formatter:'.formatPctStateValue' }"/>
+          <ObjectStatus title="Total Order Value"
+                        text="{
+                          parts:[{path:'order>/totals/totalValue'},{path:'order>/currency'}],
+                          type:'sap.ui.model.type.Currency'
+                        }"/>
+          <!-- ✅ Fragment válido dentro de 'statuses' -->
+          <core:Fragment fragmentName="agentretail.fragments.TruckCapacity" type="XML"/>
+        </statuses>
+      </ObjectHeader>
+
+      <!-- (Opcional) Se quiser uma barra abaixo do header, insira aqui o TruckCapacityBar.fragment.xml -->
+
+      <Table id="orderItemsTable"
+             items="{path: 'order>/items'}"
+             itemPress="onItemPress">
+        <headerToolbar>
+          <Toolbar>
+            <Title text="Material List" level="H2"/>
+            <ToolbarSpacer/>
+            <SearchField placeholder="Search" liveChange="onOrderSearch"/>
+            <Button icon="sap-icon://action-settings" text="Personalizar" press="onOpenPerso"/>
+            <Button icon="sap-icon://sort" text="Ordenar/Filtrar" press="onOpenSortDialog"/>
+           
+
+          </Toolbar>
+        </headerToolbar>
+
+        <columns>
+          <Column id="colMaterial"><Text text="Material"/></Column>
+          <Column id="colNextOrder" hAlign="Center"><Text text="LeadTime"/></Column>
+          <Column id="colQtyLU" hAlign="Center"><Text text="Quantidade Sugerida"/></Column>
+          <Column id="colConv" hAlign="Center"><Text text="Fator de conversão"/></Column>
+          <Column id="colQtyBase" hAlign="Center"><Text text="Quantidade em unidade básica"/></Column>
+          <Column id="colCost" hAlign="End"><Text text="Peço de Compras"/></Column>
+          <Column id="colAvgSell" hAlign="End"><Text text="Avg. preço de vendas"/></Column>
+          <Column id="colMarkup" hAlign="Center"><Text text="Margem %"/></Column>
+          <Column id="colMarginAgreements" hAlign="Center">  <Text text="Margem c/ Acordos"/></Column>
+           <Column id="colStockototal" hAlign="Center"> <Text text="Estoque Total "/> </Column>
+          <Column id="colStockCov" hAlign="Center"> <Text text=" Cobertura"/> </Column>
+          <Column id="colAggDemand" hAlign="End">  <Text text="Demanda agregada (30d)"/></Column>
+
+          <Column id="colSubtotal" hAlign="End"><Text text="Subtotal"/></Column>
+          <Column id="colPONumber" hAlign="Center" visible="{order>/showPoColumn}">
+            <Text text="Order No."/>
+          </Column>
+          <Column id="colStock" hAlign="Center">
+            <Text text="Disponibilidade do estoque (próximos 30 dias)"/>
+          </Column>
+        </columns>
+
+        <items>
+          <ColumnListItem type="Navigation" vAlign="Middle">
+            <cells>
+              <ObjectIdentifier title="{order>id}" text="{order>name}"
+                                titleActive="true" titlePress="onMaterialTitlePress"/>
+              <Text text="0"/>
+              <StepInput value="{order>qty}" min="0" step="1" width="8rem" change="onQtyChange"/>
+              <Text text="1 {order>unit} = 1 PEÇ"/>
+              <ObjectNumber number="{order>qtyBase}" unit="PEÇ"/>
+              <Input value="{order>price}" type="Number" width="8rem"
+                     description="{order>/currency}" change="onPriceChange"/>
+              <Input value="{order>avgSellPrice}" type="Number" width="8rem"
+                     description="{order>/currency}" change="onAvgSellChange"/>
+              <ObjectStatus
+                text="{
+                  parts:[{path:'order>price'},{path:'order>avgSellPrice'}],
+                  formatter:'.formatMarkupPct'
+                }"
+                state="{
+                  parts:[{path:'order>price'},{path:'order>avgSellPrice'}],
+                  formatter:'.formatMarkupState'
+                }"/>
+                <ObjectStatus  text="{
+                  parts:[{path:'order>price'},{path:'order>avgSellPrice'},{path:'order>agreementValue'}],
+                  formatter:'.formatAgreementMarginPct'
+                }"
+                state="{
+                  parts:[{path:'order>price'},{path:'order>avgSellPrice'},{path:'order>agreementValue'}],
+                  formatter:'.formatAgreementMarginState'
+                }"/>
+            <ObjectNumber number="{order>stockTotal}" unit="PEÇ"/>
+               <!-- 👉 1) Estoque Total / Cobertura -->
+            <VBox renderType="Bare">
+            
+              <ObjectStatus
+                text="{ path:'order>coverageDays', formatter:'.formatCoverageText' }"
+                state="{ path:'order>coverageDays', formatter:'.formatCoverageState' }"/>
+            </VBox>
+               
+              <!-- 👉 2) Demanda agregada -->
+              <ObjectNumber number="{order>aggDemand30}" unit="PEÇ"/>
+              <!-- 👉 3) Subtotal (depois das novas colunas) -->
+              <ObjectNumber
+                number="{= (Number(${order>qtyBase})||0) * (Number(${order>price})||0) }"
+                unit="{order>/currency}"/>
+
+              <!-- 👉 4) N° do Pedido -->
+              <Link visible="{= ${order>/showPoColumn} &amp;&amp; !!${order>poNumber} }"
+                    text="{order>poNumber}"
+                    href="{ path:'order>poNumber', formatter:'.formatPoHref' }"
+                    target="_blank"/>
+
+              <!-- 👉 5) Disponibilidade (próximos 30 dias) -->
+              <ProgressIndicator
+                percentValue="{order>stockPct}"
+                state="{ path:'order>stockPct', formatter:'.formatStockState' }"
+                displayValue="{= ${order>stockPct} + ' %'}"
+                width="10rem"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+
+    </content>
+
+    			<footer>
+ <Toolbar>
+            
+        <Button id="btnSupplierAlerts"
+        icon="sap-icon://alert"
+        text="{= 'Alertas' + (${alerts>/count} ? ' (' + ${alerts>/count} + ')' : '') }"
+        type="{= ${alerts>/count} > 0 ? 'Attention' : 'Default' }"
+        press="onOpenSupplierAlerts"/>
+            <ToolbarSpacer/> 
+            <Button text="Gerar Pedido" type="Emphasized" press="onOpenDeliveryDialog"/>
+            <Button   icon="sap-icon://ai"  text="Sugerir"   press="onSuggestQuantities"/>
+     
+
+          </Toolbar>
+		</footer>
+  </Page>
+</mvc:View>

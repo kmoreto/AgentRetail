@@ -1,0 +1,300 @@
+<mvc:View
+  controllerName="agentretail.controller.View1"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:layout="sap.ui.layout"
+  xmlns:core="sap.ui.core">
+
+  <Page id="pageRetailCockpit" showHeader="false" class="retailPage">
+    <content>
+      <HBox class="sapShellTopBar retailShellBar" alignItems="Center" justifyContent="SpaceBetween" renderType="Bare">
+        <HBox alignItems="Center" renderType="Bare" class="sapShellLeft">
+          <Image src="img/SAP-Logo.svg" width="4.8rem" class="sapShellLogo"/>
+          <Text text="My Cockpit" class="sapShellHome"/>
+          <Button icon="sap-icon://navigation-down-arrow" type="Transparent" class="sapShellPlainIcon"/>
+        </HBox>
+        <SearchField width="22rem" placeholder="Search everything" class="retailGlobalSearch"/>
+        <HBox alignItems="Center" renderType="Bare" class="sapShellRight">
+          <Button icon="sap-icon://search" type="Transparent" class="sapShellIcon"/>
+          <Button icon="sap-icon://discussion-2" type="Transparent" class="sapShellIcon"/>
+          <Button icon="sap-icon://show" type="Transparent" class="sapShellIcon"/>
+          <core:HTML id="jouleShellNative"
+                     content="&lt;button type=&quot;button&quot; class=&quot;sapShellJouleNative&quot; title=&quot;Joule&quot; aria-label=&quot;Joule&quot;&gt;&lt;/button&gt;"/>
+          <Button icon="sap-icon://bell" type="Transparent" class="sapShellIcon"/>
+        </HBox>
+      </HBox>
+
+      <f:DynamicPage id="retailDynamicPage" toggleHeaderOnTitleClick="false" class="retailDynamicPage">
+        <f:title>
+          <f:DynamicPageTitle>
+            <f:heading>
+              <VBox renderType="Bare">
+                <Text text="Tue, Apr 17 | 5:17 PM | NYC" class="retailDateLine"/>
+                <Title text="Good morning, Kleber Moreto!" level="H2" class="retailMainTitle"/>
+              </VBox>
+            </f:heading>
+            <f:actions>
+              <Button icon="sap-icon://action-settings" type="Transparent" tooltip="Settings"/>
+            </f:actions>
+          </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+          <f:DynamicPageHeader pinnable="false" class="retailHeader">
+            <f:content>
+              <VBox class="retailFilterBand">
+                <HBox alignItems="Center" justifyContent="SpaceBetween" class="retailFilterTitle">
+                  <Title text="Favorites" level="H4"/>
+                  <Button icon="sap-icon://add-favorite" type="Transparent" tooltip="Favorite filters"/>
+                </HBox>
+                <HBox wrap="Wrap" alignItems="End" renderType="Bare" class="retailFilters">
+                  <VBox class="retailFilterField">
+                    <Label text="Market Unit"/>
+                    <Select selectedKey="MU-01" width="100%">
+                      <core:Item key="MU-01" text="MU-01"/>
+                      <core:Item key="MU-02" text="MU-02"/>
+                    </Select>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Time Horizon"/>
+                    <DatePicker value="2023-04-17" valueFormat="yyyy-MM-dd" displayFormat="MMM d, yyyy" width="100%"/>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Product Hierarchy Nodes"/>
+                    <MultiInput showValueHelp="true" width="100%"/>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Products"/>
+                    <MultiInput showValueHelp="true" width="100%"/>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Location Groups / Locations"/>
+                    <MultiInput showValueHelp="true" width="100%"/>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Countries / Regions"/>
+                    <MultiComboBox width="100%">
+                      <core:Item key="US" text="United States"/>
+                      <core:Item key="CA" text="Canada"/>
+                    </MultiComboBox>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Suppliers Group / Suppliers"/>
+                    <MultiInput showValueHelp="true" width="100%"/>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Supplier Subranges"/>
+                    <MultiInput showValueHelp="true" width="100%"/>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Brands"/>
+                    <MultiInput showValueHelp="true" width="100%"/>
+                  </VBox>
+                  <VBox class="retailFilterField">
+                    <Label text="Promotions"/>
+                    <MultiInput showValueHelp="true" width="100%"/>
+                  </VBox>
+                  <HBox class="retailFilterActions" alignItems="Center">
+                    <Button text="Apply" type="Emphasized" press="onApplyFilters"/>
+                    <Button text="Clear" type="Transparent" press="onClearFilters"/>
+                    <Button text="Adapt Filters" type="Transparent"/>
+                  </HBox>
+                </HBox>
+              </VBox>
+            </f:content>
+          </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+          <VBox class="retailContent">
+            <HBox alignItems="Center" justifyContent="SpaceBetween" class="retailSectionHead">
+              <Title text="Alerts / Insights" level="H4"/>
+              <Button icon="sap-icon://action-settings" type="Transparent" tooltip="Configure alerts"/>
+            </HBox>
+
+            <layout:Grid defaultSpan="XL3 L3 M6 S12" hSpacing="1" vSpacing="1" class="retailAlertGrid" content="{alerts>/items}">
+              <VBox class="retailAlertCard">
+                <HBox justifyContent="SpaceBetween" alignItems="Start">
+                  <HBox alignItems="Center" class="retailAlertTop">
+                    <core:Icon src="{alerts>icon}" color="{alerts>color}" size="1rem"/>
+                    <Title text="{alerts>title}" level="H6"/>
+                  </HBox>
+                  <Text text="{alerts>date}" class="retailMuted"/>
+                </HBox>
+                <Text text="{alerts>subtitle}" wrapping="true" class="retailAlertSubtitle"/>
+                <Text text="{alerts>description}" wrapping="true" class="retailMuted"/>
+                <HBox justifyContent="End" class="retailAlertActions">
+                  <Button text="View Details" type="Success" press="onAlertDetails"/>
+                  <Button text="Ignore" type="Reject" press="onIgnoreAlert"/>
+                </HBox>
+              </VBox>
+            </layout:Grid>
+
+            <HBox justifyContent="End" class="retailMoreLinks">
+              <Link text="View More"/>
+              <Text text="|"/>
+              <Link text="Alert Center"/>
+            </HBox>
+
+            <Title text="Overview" level="H4" class="retailOverviewTitle"/>
+            <layout:Grid defaultSpan="XL4 L4 M12 S12" hSpacing="1" vSpacing="1">
+              <VBox class="retailPanel retailKpiPanel">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="retailPanelHeader">
+                  <Title text="KPIs" level="H5"/>
+                  <HBox>
+                    <Button icon="sap-icon://filter" type="Transparent"/>
+                    <Button icon="sap-icon://sort" type="Transparent"/>
+                  </HBox>
+                </HBox>
+                <VBox items="{kpis>/items}">
+                  <HBox class="retailKpiRow" alignItems="Center">
+                    <VBox width="7rem">
+                      <Text text="{kpis>name}" class="retailKpiName"/>
+                      <ObjectStatus text="{kpis>delta}" state="{kpis>state}"/>
+                    </VBox>
+                    <VBox class="retailKpiTrack">
+                      <core:HTML content="{kpis>barHtml}"/>
+                    </VBox>
+                    <VBox alignItems="End" width="4.5rem">
+                      <Text text="{kpis>target}" class="retailMuted"/>
+                      <ObjectStatus text="{kpis>value}" state="{kpis>state}"/>
+                    </VBox>
+                  </HBox>
+                </VBox>
+                <Button text="KPI Builder" icon="sap-icon://add" type="Transparent" class="retailPanelLink"/>
+              </VBox>
+
+              <VBox class="retailPanel">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="retailPanelHeader">
+                  <Title text="Order Proposals" level="H5"/>
+                  <HBox class="retailIconCluster">
+                    <Button icon="sap-icon://bar-chart" type="Transparent"/>
+                    <Button icon="sap-icon://line-chart" type="Transparent"/>
+                    <Button icon="sap-icon://action-settings" type="Transparent"/>
+                  </HBox>
+                </HBox>
+                <HBox class="retailMiniStats">
+                  <VBox><Text text="243" class="retailMetric"/><Text text="Rate of Release" class="retailMuted"/></VBox>
+                  <VBox><Text text="89" class="retailMetric"/><Text text="Action Required" class="retailMuted"/></VBox>
+                  <VBox><Text text="3" class="retailMetric"/><Text text="Completed" class="retailMuted"/></VBox>
+                </HBox>
+                <Select selectedKey="status" width="10rem">
+                  <core:Item key="status" text="By Status"/>
+                  <core:Item key="day" text="By Day"/>
+                </Select>
+                <core:HTML content="{charts>/orderProposalHtml}"/>
+                <Button text="Manage Order Proposals" icon="sap-icon://chain-link" type="Transparent" class="retailPanelLink"/>
+              </VBox>
+
+              <VBox class="retailPanel">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="retailPanelHeader">
+                  <Title text="Goods Receipts" level="H5"/>
+                  <HBox class="retailIconCluster">
+                    <Button icon="sap-icon://bar-chart" type="Transparent"/>
+                    <Button icon="sap-icon://line-chart" type="Transparent"/>
+                    <Button icon="sap-icon://action-settings" type="Transparent"/>
+                  </HBox>
+                </HBox>
+                <HBox class="retailMiniStats">
+                  <VBox><Text text="30" class="retailMetric"/><Text text="Total" class="retailMuted"/></VBox>
+                  <VBox><Text text="14" class="retailMetric"/><Text text="Delivery Completed" class="retailMuted"/></VBox>
+                  <VBox><Text text="18" class="retailMetric"/><Text text="Open" class="retailMuted"/></VBox>
+                </HBox>
+                <core:HTML content="{charts>/donutHtml}"/>
+                <Button text="Purchase Orders" icon="sap-icon://chain-link" type="Transparent" class="retailPanelLink"/>
+              </VBox>
+            </layout:Grid>
+
+            <layout:Grid defaultSpan="XL6 L6 M12 S12" hSpacing="1" vSpacing="1" class="retailLowerGrid">
+              <VBox class="retailPanel">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="retailPanelHeader">
+                  <Title text="Forecast Watching List" level="H5"/>
+                  <Select selectedKey="2w" width="9rem">
+                    <core:Item key="2w" text="+/- 2 weeks"/>
+                    <core:Item key="4w" text="+/- 4 weeks"/>
+                  </Select>
+                </HBox>
+                <core:HTML content="{charts>/forecastHtml}"/>
+                <Button text="Analyze Forecast" icon="sap-icon://chain-link" type="Transparent" class="retailPanelLink"/>
+              </VBox>
+
+              <VBox class="retailPanel">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="retailPanelHeader">
+                  <Title text="Calendar" level="H5"/>
+                  <Button text="Monthly" icon="sap-icon://calendar" type="Transparent"/>
+                </HBox>
+                <HBox class="retailCalendarWrap" alignItems="Stretch">
+                  <core:HTML content="{charts>/calendarHtml}"/>
+                  <List items="{calendar>/events}" showSeparators="None" class="retailEventList">
+                    <CustomListItem>
+                      <HBox class="retailEventItem">
+                        <Text text="{calendar>date}" class="retailEventDate"/>
+                        <VBox>
+                          <Text text="{calendar>title}" class="retailEventTitle"/>
+                          <Text text="{calendar>type}" class="retailMuted"/>
+                        </VBox>
+                      </HBox>
+                    </CustomListItem>
+                  </List>
+                </HBox>
+                <Button text="Event Calendar" icon="sap-icon://chain-link" type="Transparent" class="retailPanelLink"/>
+              </VBox>
+
+              <VBox class="retailPanel">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="retailPanelHeader">
+                  <Title text="Promotions" level="H5"/>
+                  <Button icon="sap-icon://full-screen" type="Transparent"/>
+                </HBox>
+                <IconTabBar expandable="false" selectedKey="apr" class="retailPromoTabs">
+                  <items>
+                    <IconTabFilter key="feb" text="February"/>
+                    <IconTabFilter key="mar" text="March"/>
+                    <IconTabFilter key="apr" text="April"/>
+                    <IconTabFilter key="may" text="May"/>
+                    <IconTabFilter key="jun" text="June"/>
+                  </items>
+                </IconTabBar>
+                <core:HTML content="{charts>/promotionsHtml}"/>
+                <Button text="Promotion Plan" icon="sap-icon://chain-link" type="Transparent" class="retailPanelLink"/>
+              </VBox>
+
+              <VBox class="retailPanel">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="retailPanelHeader">
+                  <Title text="Upcoming Items" level="H5"/>
+                  <Button icon="sap-icon://full-screen" type="Transparent"/>
+                </HBox>
+                <IconTabBar expandable="false" selectedKey="new" class="retailPromoTabs">
+                  <items>
+                    <IconTabFilter key="new" text="New Products"/>
+                    <IconTabFilter key="seasonal" text="Seasonal Products"/>
+                    <IconTabFilter key="promo" text="New Promotions"/>
+                    <IconTabFilter key="locations" text="New Locations"/>
+                  </items>
+                </IconTabBar>
+                <List items="{products>/items}" showSeparators="None" class="retailProductList">
+                  <CustomListItem>
+                    <HBox class="retailProductRow" alignItems="Center">
+                      <core:Icon src="{products>icon}" size="1.3rem" color="#5b6b7c"/>
+                      <VBox width="12rem">
+                        <Text text="{products>name}" class="retailEventTitle"/>
+                        <Text text="{products>supplier}" class="retailMuted"/>
+                      </VBox>
+                      <VBox width="6rem">
+                        <Text text="{products>date}" class="retailMuted"/>
+                        <Text text="{products>year}" class="retailMuted"/>
+                      </VBox>
+                      <Text text="{products>count}" class="retailMetricSmall"/>
+                      <core:HTML content="{products>barHtml}"/>
+                    </HBox>
+                  </CustomListItem>
+                </List>
+                <Button text="Product Factsheet" icon="sap-icon://chain-link" type="Transparent" class="retailPanelLink"/>
+              </VBox>
+            </layout:Grid>
+          </VBox>
+        </f:content>
+      </f:DynamicPage>
+    </content>
+  </Page>
+</mvc:View>

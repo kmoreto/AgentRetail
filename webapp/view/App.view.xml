@@ -1,0 +1,12 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  controllerName="agentretail.controller.App">
+
+  <VBox fitContainer="true">
+  
+    <App id="app" />
+  </VBox>
+
+</mvc:View>

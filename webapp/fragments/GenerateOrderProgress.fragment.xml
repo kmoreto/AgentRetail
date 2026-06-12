@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="dlgGenerateOrderProgress"
+          class="sapUiContentPadding"
+          showHeader="false"
+          afterClose="onCloseGenerateOrderProgress">
+    <VBox class="sapUiSmallMargin" alignItems="Center" justifyContent="Center">
+      <BusyIndicator />
+      <Text text="{gen>/message}" class="sapUiTinyMarginTop"/>
+    </VBox>
+  </Dialog>
+</core:FragmentDefinition>

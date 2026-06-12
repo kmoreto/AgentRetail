@@ -1,0 +1,8 @@
+{
+  "Products": [
+    { "ProductID": "M-1000", "ProductName": "Camiseta", "Price": 19.90, "Weight": 0.2, "Volume": 1 },
+    { "ProductID": "M-2000", "ProductName": "Calça Jeans", "Price": 129.90, "Weight": 0.6, "Volume": 2 },
+    { "ProductID": "M-3000", "ProductName": "Tênis", "Price": 249.00, "Weight": 0.8, "Volume": 3 },
+    { "ProductID": "M-4000", "ProductName": "Jaqueta", "Price": 399.00, "Weight": 1.2, "Volume": 4 }
+  ]
+}

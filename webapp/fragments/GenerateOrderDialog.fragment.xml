@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="dlgGenerateOrder" title="Tipo de geração" class="sapUiContentPadding" stretchOnPhone="true">
+    <VBox class="sapUiSmallMargin">
+      <RadioButtonGroup id="rbgType" columns="1" selectedIndex="1">
+        <buttons>
+          <RadioButton text="Pedido de Transferência" />
+          <RadioButton text="Pedido Fornecedor" />
+        </buttons>
+      </RadioButtonGroup>
+    </VBox>
+    <beginButton>
+      <Button text="Continuar" type="Emphasized" press="onConfirmGenerateType"/>
+    </beginButton>
+    <endButton>
+      <Button text="Cancelar" press="onCancelGenerateType"/>
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>
